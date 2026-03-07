@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: ez-task
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+    networks:
+      - nginx-network
+      - eztask-network
+
+networks:
+  nginx-network:
+    external: true
+  eztask-network:
+    external: true
+    
