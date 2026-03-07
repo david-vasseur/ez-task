@@ -3,7 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { TfiAngleLeft } from 'react-icons/tfi';
 
-function BackButton({ onClick }) {
+type BackButtonProps = {
+  onClick?: () => void; 
+}
+
+function BackButton({ onClick }: BackButtonProps) {
     
     const router = useRouter();
 
