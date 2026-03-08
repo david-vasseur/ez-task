@@ -1,10 +1,15 @@
 "use client"
 
+import { loginAction } from '@/lib/actions/loginAction';
 import { ILogin, LoginSchema } from '@/lib/schema/loginSchema';
+import { useUserStore } from '@/lib/store/userStore';
 import { useForm } from '@tanstack/react-form';
 import { BiSend } from 'react-icons/bi';
+import { toast } from 'sonner';
 
 function LoginForm() {
+
+    const { addUser } = useUserStore();
 
     const form = useForm({
             defaultValues: {
@@ -15,7 +20,29 @@ function LoginForm() {
                 onChange: LoginSchema,
             },
             onSubmit: async ({ value }) => {
-                console.log(value);
+                try {
+                    const response = await loginAction(value)
+                    if(response.error) {
+                        toast.error('ERREUR', {
+                            description: "Une erreur est survenue",
+                        })
+                    } else {
+                        toast.success("Connection reussi", {
+                            description: "Vous pouvez dorénavent ajouter des taches",
+                        })
+                        addUser({
+                            ...response.data.user,
+                            token: response.data.token,
+                        });
+
+                        form.reset();
+                    }
+                } catch (error) {
+                    toast.error('ERREUR', {
+                        description: "Une erreur est survenue",
+                    })
+                }       
+
             },
         })
 
