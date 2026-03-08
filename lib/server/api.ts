@@ -8,6 +8,7 @@ export async function apiFetch(
 ) {
 
     const csrf = await getCsrfToken();
+    console.log(csrf);    
 
     const response = await fetch(url, {
         ...options,
