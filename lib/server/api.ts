@@ -1,22 +1,16 @@
 "use server"
 
-import { getCsrfToken } from "./csrf";
-
 export async function apiFetch(
     url: string,
     options: RequestInit = {}
 ) {
     console.log("apiFetch called with URL:", url, "options:", options);
 
-    const csrf = await getCsrfToken();
-    console.log("CSRF token fetched:", csrf);
-
     console.log("About to perform fetch...");
     const response = await fetch(url, {
         ...options,
         headers: {
             "Content-Type": "application/json",
-            "X-CSRF-Token": csrf,
             ...(options.headers || {})
         },
         credentials: "include",
