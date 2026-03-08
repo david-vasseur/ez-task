@@ -4,21 +4,25 @@ import { apiFetch } from "@/lib/server/api";
 import { ISign } from "@/lib/schema/signSchema";
 
 export async function signAction(values: ISign) {
+    console.log("signAction called with values:", values); // 1️⃣ log d'entrée
 
-	try {
-		const data = await apiFetch(
-			"http://ez-task-backend:8080/api/users/sign",
-			{
-				method: "POST",
-				body: JSON.stringify(values)
-			}
-		);
+    try {
+        console.log("About to call apiFetch to /users/sign"); // 2️⃣ avant fetch
 
-		return { data };
+        const data = await apiFetch(
+            "http://ez-task-backend:8080/api/users/sign",
+            {
+                method: "POST",
+                body: JSON.stringify(values)
+            }
+        );
 
-	} catch (error: any) {
+        console.log("apiFetch resolved with data:", data); // 3️⃣ après fetch
 
-		return { error: error.message };
+        return { data };
 
-	}
+    } catch (error: any) {
+        console.log("signAction caught error:", error); // 4️⃣ log d'erreur
+        return { error: error.message };
+    }
 }
