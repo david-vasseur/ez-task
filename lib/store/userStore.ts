@@ -41,7 +41,7 @@ export const useUserStore = create<UserState>()(
         // On reconstruit le socket si token présent
         let socket: Socket | null = null;
         if (user.token) {
-            socket = io('wss://ez-task.fr', {
+            socket = io('/api/websocket', {
                 path: '/api/websocket',
                 auth: { token: user.token },
                 query: { userId: user.id, userFirstName: user.firstName },
