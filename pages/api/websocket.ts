@@ -1,5 +1,3 @@
-"use server"
-
 import { Server as HTTPServer } from 'http';
 import { Server as IOServer } from 'socket.io';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -15,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!(socketServer as any).io) {
         console.log('Initialisation Socket.io serveur Next.js');
 
-        const io = new IOServer(socketServer, { path: '/api/websocket' });
+        const io = new IOServer(socketServer, { path: '/api/websocket/' });
 
         io.on('connection', (socket) => {
             const { token } = socket.handshake.auth;

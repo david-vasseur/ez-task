@@ -42,7 +42,7 @@ export const useUserStore = create<UserState>()(
         let socket: Socket | null = null;
         if (user.token) {
             socket = io('/api/websocket', {
-                path: '/api/websocket',
+                path: '/api/websocket/',
                 auth: { token: user.token },
                 query: { userId: user.id, userFirstName: user.firstName },
                 transports: ['websocket'],
