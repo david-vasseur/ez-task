@@ -34,7 +34,7 @@ function LoginForm() {
                         toast.success("Connection reussi", {
                             description: "Vous pouvez dorénavent ajouter des taches",
                         })
-                        addUser(response.data.user);
+                        addUser({...response.data.user, token: response.data.token});
                         setJwt(response.data.token)
                         form.reset();
                         router.push('/profile');
