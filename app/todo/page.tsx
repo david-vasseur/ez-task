@@ -49,7 +49,7 @@ function page() {
             }
         };
         fetchTrees();
-    }, [familyId]);
+    }, []);
 
 
 //   const handleDelete = async (id) => {
