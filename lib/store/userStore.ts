@@ -37,32 +37,42 @@ export const useUserStore = create<UserState>()(
       token: null,
       socket: null,
 
-      addUser: (user) => {
-        // On reconstruit le socket si token présent
-        let socket: Socket | null = null;
-        if (user.token) {
-            socket = io('/api/websocket', {
+        addUser: (user) => {
+            // On reconstruit le socket si token présent
+            let socket: Socket | null = null;
+
+            if (user.token) {
+                // On fait une IIFE async pour fetch sans bloquer le setter
+                (async () => {
+                try {
+                    await fetch('/api/websocket'); // initialise le serveur Next.js
+                } catch (e) {
+                    console.error('Impossible d’initialiser Socket.io', e);
+                }
+                })();
+
+                socket = io('/api/websocket', {
                 path: '/api/websocket',
                 auth: { token: user.token },
                 query: { userId: user.id, userFirstName: user.firstName },
                 transports: ['websocket'],
-            });
+                });
 
-          socket.on('connect', () => {
-            console.log(`L'utilisateur ${user.firstName} vient de se connecter`);
-          });
+                socket.on('connect', () => {
+                console.log(`L'utilisateur ${user.firstName} vient de se connecter`);
+                });
 
-          socket.on('disconnect', () => {
-            console.log(`L'utilisateur ${user.firstName} vient de se déconnecter`);
-          });
-        }
+                socket.on('disconnect', () => {
+                console.log(`L'utilisateur ${user.firstName} vient de se déconnecter`);
+                });
+            }
 
-        set({
-          ...user,
-          isConnected: true,
-          socket,
-        } as UserState);
-      },
+            set({
+                ...user,
+                isConnected: true,
+                socket,
+            } as UserState);
+        },
 
       removeUser: () => {
         get().socket?.disconnect();
