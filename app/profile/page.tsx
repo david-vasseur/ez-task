@@ -2,15 +2,29 @@
 
 import { useSecurityStore } from '@/lib/store/securityStore';
 import { useUserStore } from '@/lib/store/userStore';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 function Profile() {
+
+    const router = useRouter();
     const { jwt, setJwt } = useSecurityStore();  
-    const { firstName, name, email, removeUser } = useUserStore();
+    const { isConnected, firstName, name, email, removeUser } = useUserStore();
+
 
     const logout = () => {
         removeUser();
         setJwt('');
+        router.push('/')
     };
+
+    useEffect(() => {
+
+        if (isConnected) {
+            const eventSource = new EventSource('/api/updates')
+        }
+
+    }, [isConnected])
 
 //   useEffect (() => {    
 //     const fetchUsers = async () => {
