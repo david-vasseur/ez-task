@@ -8,10 +8,18 @@ import { FaPlusCircle } from 'react-icons/fa';
 function page() {
 
     const { familyId, family } = useUserStore();
-  const [add, setAdd] = useState(true);
-  const [lists, setLists] = useState<{ id: number; name: string; familyId: number; createdAt: Date; updatedAt: Date }[]>([]);
-  const [isModified, setIsModified] = useState();  
-  const [updateValue, setUpdateValue] = useState('');
+    const [add, setAdd] = useState(true);
+    const [lists, setLists] = useState<{
+        id: number;
+        name: string;
+        familyId: number;
+        createdAt: string;
+        updatedAt: string;
+    }[]>([]);
+    console.log(lists);
+    
+    const [isModified, setIsModified] = useState();  
+    const [updateValue, setUpdateValue] = useState('');
 
 //   useEffect(() => {
     
