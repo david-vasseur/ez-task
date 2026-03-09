@@ -7,6 +7,8 @@ import jwt from 'jsonwebtoken';
 import { io as ClientIO } from 'socket.io-client';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    console.log('Route /api/websocket hit');
+
     // cast vers 'any' pour accéder à la propriété spécifique de Next.js
     const socketServer = (res.socket as any).server as HTTPServer;
 
