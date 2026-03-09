@@ -16,36 +16,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const io = new IOServer(socketServer, { path: '/api/websocket' });
 
         io.on('connection', (socket) => {
-            console.log('Frontend connecté via Next.js');
-
             const { token } = socket.handshake.auth;
-            if (!token) {
-                console.log('Token manquant');
-                socket.disconnect(true);
-                return;
-            }
+            if (!token) return socket.disconnect(true);
 
-            const secret = process.env.JWT_SECRET;
-            if (!secret) {
-                console.log('JWT_SECRET non défini');
-                socket.disconnect(true);
-                return;
-            }
+            const payload = jwt.verify(token, process.env.JWT_SECRET!);
 
-            try {
-                const payload = jwt.verify(token, secret);
-                console.log('JWT valide pour user', payload);
+            // Maintenant on a l'userId et le prénom
+            const userId = socket.handshake.query.userId;
+            const userFirstName = socket.handshake.query.userFirstName;
 
-                // Connexion au backend interne
-                const backendSocket = ClientIO('http://ez-task-backend:8080');
+            // Connection vers backend
+            const backendSocket = ClientIO('http://ez-task-backend:8080', {
+                query: { userId, userFirstName },
+            });
 
-                // Forward des messages
-                socket.on('message', (msg) => backendSocket.emit('message', msg));
-                backendSocket.on('message', (msg) => socket.emit('message', msg));
-            } catch (err) {
-                console.log('Token invalide');
-                socket.disconnect(true);
-            }
+            // Forward des messages
+            socket.on('message', (msg) => backendSocket.emit('message', msg));
+            backendSocket.on('message', (msg) => socket.emit('message', msg));
         });
 
         (socketServer as any).io = io; // stocker l’instance pour éviter plusieurs initialisations
