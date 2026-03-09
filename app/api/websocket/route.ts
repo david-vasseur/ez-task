@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 import { io as ClientIO } from 'socket.io-client';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // cast vers 'any' pour accéder à la propriété spécifique de Next.js
     const socketServer = (res.socket as any).server as HTTPServer;
 
