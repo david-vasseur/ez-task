@@ -41,12 +41,11 @@ export const useUserStore = create<UserState>()(
         // On reconstruit le socket si token présent
         let socket: Socket | null = null;
         if (user.token) {
-          socket = io('https://ez-task.fr', {
-            auth: { token: user.token },
-            query: { userId: user.id, userFirstName: user.firstName },
-            path: '/api/websocket',
-            transports: ['websocket'],
-          });
+            socket = io('/api/websocket', {
+                auth: { token: user.token },
+                query: { userId: user.id, userFirstName: user.firstName },
+                transports: ['websocket'],
+            });
 
           socket.on('connect', () => {
             console.log(`L'utilisateur ${user.firstName} vient de se connecter`);
