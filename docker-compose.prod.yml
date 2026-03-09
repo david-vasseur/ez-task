@@ -12,10 +12,13 @@ services:
     networks:
       - nginx-network
       - eztask-network
+      - redis-network
 
 networks:
   nginx-network:
     external: true
   eztask-network:
+    external: true
+  redis-network:
     external: true
     
