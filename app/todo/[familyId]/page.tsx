@@ -2,14 +2,14 @@ import ListPage from '@/components/features/ListPage';
 import { getAllTreeAction } from '@/lib/actions/listAction';
 
 interface Props {
-    params: { slug: string };
+    params: { familyId: string };
 }
 
 async function page({ params }: Props) {
   
-    const familyId = Number(await params.slug);
+    const id = Number(await params.familyId);
 
-    const lists = await getAllTreeAction(familyId)
+    const lists = await getAllTreeAction(id)
 
     if (!lists) return
 
