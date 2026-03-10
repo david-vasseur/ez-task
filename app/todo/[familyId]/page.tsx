@@ -7,7 +7,7 @@ interface Props {
 
 async function page({ params }: Props) {
   
-    const idParams = await params.familyId;
+    const idParams = params.familyId;
 
     console.log(idParams);
 
