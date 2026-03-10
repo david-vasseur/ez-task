@@ -7,7 +7,13 @@ interface Props {
 
 async function page({ params }: Props) {
   
-    const id = Number(await params.familyId);
+    const idParams = await params.familyId;
+
+    console.log(idParams);
+
+    const id = Number(idParams);
+
+    console.log(id);    
 
     const lists = await getAllTreeAction(id)
 
