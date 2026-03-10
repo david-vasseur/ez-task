@@ -6,7 +6,9 @@ interface Props {
 }
 
 async function page({ params }: Props) {
-  
+
+    console.log(params);
+      
     const idParams = params.familyId;
 
     console.log(idParams);
