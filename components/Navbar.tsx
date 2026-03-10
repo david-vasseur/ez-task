@@ -7,6 +7,7 @@ function NavBar() {
     
     const isConnected = useUserStore((state) => state.isConnected)
     const firstName = useUserStore((state) => state.firstName)
+    const { familyId } = useUserStore();
 
   return (
     <div className="fixed top-0 right-0 w-screen z-50 backdrop-blur-sm blur-[0.5px] bg-linear-to-r from-[#3e065f9a] via-[#6f0b9793] to-[#8d05c29f] flex justify-between items-center">
@@ -20,7 +21,7 @@ function NavBar() {
                     isConnected === true ? (
                     <>
                         <li>
-                            <Link href={"/todo"}>Mes listes</Link>
+                            <Link href={`/todo/${familyId}`}>Mes listes</Link>
                         </li>
                         <li>
                             <Link href={"/profile"}>{firstName}</Link>

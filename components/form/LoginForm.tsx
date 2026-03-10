@@ -44,7 +44,6 @@ function LoginForm() {
                         description: "Une erreur est survenue",
                     })
                 }       
-
             },
         })
 

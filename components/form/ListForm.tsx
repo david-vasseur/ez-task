@@ -44,7 +44,7 @@ function ListForm({ familyId, token }: IList) {
 
     return (
         <form 
-            className="flex space-y-4 p-10 border rounded-2xl"
+            className="flex space-y-4 w-[90vw] xl:w-[60vw] p-10 border rounded-2xl"
             onSubmit={(e) => {
                 e.preventDefault()
                 form.handleSubmit()

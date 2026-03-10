@@ -8,16 +8,16 @@ export async function getAllTreeAction(familyId: number) {
     try {
         console.log("About to call apiFetch to /tree/all/:familyId"); // 2️⃣ avant fetch
 
-        const data = await apiFetch(
+        const res = await apiFetch(
             `http://ez-task-backend:8080/api/tree/all/${familyId}`,
             {
                 method: "GET",
             }
         );
 
-        console.log("apiFetch resolved with data:", data); // 3️⃣ après fetch
+        console.log("apiFetch resolved with data:", res); // 3️⃣ après fetch
 
-        return { data };
+        return res.data;
 
     } catch (error: any) {
         console.log("signAction caught error:", error); // 4️⃣ log d'erreur
