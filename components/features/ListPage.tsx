@@ -28,13 +28,12 @@ function ListPage({ lists }: { lists: IList[] }) {
                     </div>
                 <div className="flex flex-col gap-10 mt-20 mb-20 justify-center items-center">
                     {lists && lists.length > 0 ? lists.map(list => (
-                    // <Card key={list.id} item={list} onDelete={handleDelete} onUpdate={handleUpdate} isModified={isModified} setIsModified={setIsModified} updateValue={updateValue} setUpdateValue={setUpdateValue} />
-                    <p key={list.id}>{list.name}</p>
+                        <p key={list.id}>{list.name}</p>
 
-                    ))
-                    : (
-                    <p>aucune liste n'a encore été créé.</p>
-                    )
+                        )
+                        ) : (
+                            <p>aucune liste n'a encore été créé.</p>
+                        )
                     }
                 </div>
             </div>

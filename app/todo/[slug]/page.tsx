@@ -9,13 +9,9 @@ const dynamic = "force-dynamic";
 
 async function page({ params }: Props) {
       
-    const idParams = await params.slug;
+    const { slug } = await params;
 
-    console.log(idParams);
-
-    const id = Number(idParams);
-
-    console.log(id);    
+    const id = Number(slug);
 
     const lists = await getAllTreeAction(id)
 
