@@ -3,7 +3,7 @@ import { z } from "zod";
 export const InputSchema = z.object({
   name: z
     .string()
-    .min(1, "Le nom de la tâche ne peut pas être vide") 
+    .min(1, "Le nom de la liste ne peut pas être vide") 
     .max(100, "Le nom est trop long") 
     .trim(), 
 });

@@ -1,7 +1,23 @@
+"use client"
+
+import ListForm from "@/components/form/ListForm";
+import List from "@/components/ui/List";
+import { useState } from "react";
 
 
 export default function Home() {
+
+	const [add, setAdd] = useState(false);
+
 	return (
+		<>
+		{/* <div className="mt-40 flex flex-col gap-10 items-center justify-center">
+			<button onClick={() => setAdd(!add)} className="mb-10">click</button>
+			
+			<ListForm familyId={2} token="azeza" open={add} />
+			<List />
+		</div> */}
+		
 		<div className="flex flex-col items-center gap-10 text-[#dbd8e3] mt-28 mb-10">
 			<h1 className=" text-center text-[2.5rem] font-extrabold mb-14">Bienvenue sur <br /> Ez-Task</h1>
 			<div className="flex gap-28 mt-10 md:mt-28">
@@ -33,5 +49,6 @@ export default function Home() {
 			</section>
 			</div>
 		</div>
+		</>
 	)
 }

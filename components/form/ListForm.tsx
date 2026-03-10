@@ -3,15 +3,20 @@
 import { addTreeAction } from '@/lib/actions/listAction';
 import { IInput, InputSchema } from '@/lib/schema/inputSchema';
 import { useForm } from '@tanstack/react-form';
-import { BiSend } from 'react-icons/bi';
+import gsap from 'gsap';
+import { useEffect, useRef } from 'react';
+import { BiCheck, BiSend } from 'react-icons/bi';
 import { toast } from 'sonner';
 
 interface IList {
     familyId: number,
     token: string
+    open: boolean
 }
 
-function ListForm({ familyId, token }: IList) {
+function ListForm({ familyId, token, open }: IList) {
+
+    const containerRef = useRef<HTMLFormElement>(null);
 
     const form = useForm({
             defaultValues: {
@@ -42,9 +47,92 @@ function ListForm({ familyId, token }: IList) {
             },
         })
 
+    useEffect(() => {
+    if (!containerRef.current) return;
+
+    const el = containerRef.current;
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 1279px)", () => {
+
+        if (open) {
+
+            // animation d'entrée
+            gsap.timeline()
+                .fromTo(
+                    el,
+                    { opacity: 0, y: -50, width: el.offsetHeight },
+                    { opacity: 1, y: 0, width: el.offsetHeight, duration: 0.2, ease: "power2.out" }
+                )
+                .to(el, {
+                    width: "80%",
+                    duration: 0.4,
+                    ease: "back.out"
+                });
+
+        } else {
+
+            // animation de sortie (inverse)
+            gsap.timeline()
+                .to(el, {
+                    width: el.offsetHeight,
+                    duration: 0.4,
+                    ease: "back.in"
+                })
+                .to(el, {
+                    opacity: 0,
+                    y: -50,
+                    duration: 0.2,
+                    ease: "power2.in"
+                });
+
+        }
+
+    });
+
+    mm.add("(min-width: 1280px)", () => {
+
+        if (open) {
+
+            gsap.timeline()
+                .fromTo(
+                    el,
+                    { opacity: 0, y: -50, width: el.offsetHeight },
+                    { opacity: 1, y: 0, width: el.offsetHeight, duration: 0.2, ease: "power2.out" }
+                )
+                .to(el, {
+                    width: "40%",
+                    duration: 0.4,
+                    ease: "back.out"
+                });
+
+        } else {
+
+            gsap.timeline()
+                .to(el, {
+                    width: el.offsetHeight,
+                    duration: 0.4,
+                    ease: "back.in"
+                })
+                .to(el, {
+                    opacity: 0,
+                    y: -50,
+                    duration: 0.2,
+                    ease: "power2.in"
+                });
+
+        }
+
+    });
+
+    return () => mm.revert();
+
+}, [open]);
+
     return (
         <form 
-            className="flex space-y-4 w-[90vw] xl:w-[60vw] p-10 border rounded-2xl"
+            ref={containerRef}
+            className="relative w-[80vw] xl:w-[50vw] h-10 xl:h-20"
             onSubmit={(e) => {
                 e.preventDefault()
                 form.handleSubmit()
@@ -54,13 +142,13 @@ function ListForm({ familyId, token }: IList) {
             <form.Field
                 name="name">
                 {({ state, handleBlur, handleChange }) => (
-                    <div>
+                    <div className="relative h-full w-full">
                         <label className="sr-only">Le nom de votre liste</label>
                         <input 
                             aria-invalid={
                                 state.meta.errors.length > 0 && state.meta.isTouched
                             }
-                            className="w-full rounded-md border border-gray-700 bg-transparent py-2 px-3 text-white placeholder-gray-500 placeholder-xs lg:placeholder-base focus:border-purple-500 focus:outline-none transition"
+                            className="w-full h-full rounded-full border border-gray-700 bg-transparent py-2 px-3 text-white placeholder-gray-500 placeholder-xs lg:placeholder-base focus:border-purple-500 focus:outline-none transition"
                             placeholder="Le nom de votre liste"
                             value={state.value}
                             onBlur={handleBlur}
@@ -68,7 +156,7 @@ function ListForm({ familyId, token }: IList) {
                         />
                         {state.meta.errors.length > 0 && state.meta.isTouched ? (
                             <p 
-                                className="text-red-500 font-semibold text-xs">
+                                className="absolute left-5 text-red-500 font-semibold text-xs">
                                     {state.meta.errors[0]?.message}
                             </p>
                         ) : null
@@ -84,13 +172,20 @@ function ListForm({ familyId, token }: IList) {
                     <button 
                         type="submit" 
                         disabled={!canSubmit || isSubmitting}
-                        className="inline-flex items-center justify-center space-x-2 rounded-md bg-purple-600 px-6 py-3 font-semibold text-black hover:bg-purple-700 transition cursor-pointer" 
-                    >
+                        className="
+                            absolute right-1 top-1/2 -translate-y-1/2
+                            flex items-center justify-center
+                            h-9 w-9
+                            xl:h-19 xl:w-19
+                            rounded-full
+                            bg-radial from-blue-800/60 to-purple-600/80 from-5% to-80%
+                            text-zinc-100
+                            hover:bg-purple-700
+                            cursor-pointer
+                        ">
                     {isSubmitting ? "..." : (
-                        <span className="flex items-center">                                        
-                            Valider
-                            <BiSend className="ml-2" />
-                        </span>
+                        <BiCheck className="text-4xl xl:text-6xl" />
+                       
                     )}
                 </button>
                 )}            
