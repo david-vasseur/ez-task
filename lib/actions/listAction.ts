@@ -39,7 +39,10 @@ export async function addTreeAction(values: IInput, familyId: number, token: str
                     "Content-Type": "application/json",
                     "Cookie": `token=${token}`, 
                 },
-                body: JSON.stringify({ values, familyId })
+                body: JSON.stringify({ 
+                    name: values.name, 
+                    familyId 
+                })
             }
         );
 
