@@ -5,6 +5,8 @@ interface Props {
     params: { slug: string };
 }
 
+const dynamic = "force-dynamic";
+
 async function page({ params }: Props) {
       
     const idParams = await params.slug;
