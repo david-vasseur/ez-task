@@ -1,5 +1,6 @@
 "use client"
 
+import ListForm from '@/components/form/ListForm';
 import { getAllTreeAction } from '@/lib/actions/listAction';
 import { useUserStore } from '@/lib/store/userStore';
 import React, { useEffect, useState } from 'react'
@@ -7,8 +8,8 @@ import { FaPlusCircle } from 'react-icons/fa';
 
 function page() {
 
-    const { familyId, family } = useUserStore();
-    const [add, setAdd] = useState(true);
+    const { familyId, family, token } = useUserStore();
+    const [add, setAdd] = useState(false);
     const [lists, setLists] = useState<{
         id: number;
         name: string;
@@ -77,11 +78,11 @@ function page() {
             <div className="flex flex-col items-center gap-5">
                 <h2 className="text-[2.5rem] font-extrabold text-[#dbd8e3] text-center">Groupe {family}</h2>
                 <div className="flex gap-5 relative">
-                    {/* {!add && (
+                    {add && token && (
                         <div className="absolute scale-[0.8] sm:scale-[1] -translate-x-[60%] transition-all duration-300">
-                            <TodoInput familyId={familyId} />
+                            <ListForm familyId={familyId} token={token} />
                         </div>
-                    )} */}
+                    )}
                     <FaPlusCircle 
                         className={`text-[#3e065f] rounded-full text-[3rem] transition ease duration-300 absolute translate-x-[300%] sm:translate-x-[400%] hover:cursor-pointer ${!add ? "rotate-45 bg-[red]" : "bg-[green]"}`} 
                         onClick={() => { setAdd(!add) }} 

@@ -1,8 +1,8 @@
 "use client"
 
 import BackButton from '@/components/ui/BackButton';
-import LoginForm from '@/components/LoginForm';
-import SignForm from '@/components/SignForm';
+import LoginForm from '@/components/form/LoginForm';
+import SignForm from '@/components/form/SignForm';
 import React, { useState } from 'react'
 
 function Sign() {

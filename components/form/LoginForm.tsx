@@ -80,7 +80,6 @@ function LoginForm() {
                         ) : null
                         }
                     </div>
-                    
                 )}
             </form.Field>
 
