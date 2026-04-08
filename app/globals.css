@@ -27,6 +27,7 @@ body {
 
 .liquid-glass {
   backdrop-filter: url(#displacementFilter);
+  -webkit-backdrop-filter: url(#displacementFilter);
 }
 
 .liquid-glass::before {

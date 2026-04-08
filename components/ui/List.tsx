@@ -209,7 +209,7 @@ export default function List({ name }: { name: string }) {
 			
 					<feDisplacementMap in="SourceGraphic"
 						in2="turbulence"    
-									scale="50" xChannelSelector="R" yChannelSelector="G" />
+									scale="10" xChannelSelector="R" yChannelSelector="G" />
 				</filter>
 			</svg>
 
