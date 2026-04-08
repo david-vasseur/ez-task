@@ -111,7 +111,7 @@ function ListForm({ familyId, token, open }: IList) {
                             aria-invalid={
                                 state.meta.errors.length > 0 && state.meta.isTouched
                             }
-                            className="w-full h-full rounded-full border border-gray-700 bg-transparent py-2 px-3 text-white placeholder-gray-500 placeholder-xs lg:placeholder-base focus:border-purple-500 focus:outline-none transition"
+                            className="w-full h-full rounded-full border border-gray-700 bg-transparent py-2 px-3 text-white placeholder-gray-500 placeholder-xs lg:placeholder-base focus:border-zinc-50 focus:outline-none transition"
                             placeholder="Le nom de votre liste"
                             value={state.value}
                             onBlur={handleBlur}
@@ -136,7 +136,7 @@ function ListForm({ familyId, token, open }: IList) {
                         type="submit" 
                         disabled={!canSubmit || isSubmitting}
                         className="
-                            absolute right-1 top-1/2 -translate-y-1/2
+                            absolute right-0.5 top-1/2 -translate-y-1/2
                             flex items-center justify-center
                             h-14 w-14
                             rounded-full

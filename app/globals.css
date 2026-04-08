@@ -24,3 +24,19 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.liquid-glass {
+  backdrop-filter: url(#displacementFilter);
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  pointer-events: none;
+
+  box-shadow:
+    inset 6px 6px 0px -6px rgba(255,255,255,0.7),
+    inset 0 0 8px 1px rgba(255,255,255,0.7);
+}

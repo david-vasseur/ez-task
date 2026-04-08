@@ -73,6 +73,7 @@ export default function List({ name }: { name: string }) {
 					gsap.set(contentRef.current, {
 						scaleY: 1 - progress * 0.05
 					});
+
 				},
 
 				onDragEnd() {
@@ -193,10 +194,26 @@ export default function List({ name }: { name: string }) {
 	};
 
 	return (
+
 		<div
 			ref={wrapperRef}
 			className="relative w-[90vw] xl:w-[40vw] lg:max-w-2xl h-15 rounded-4xl cursor-pointer"
 		>
+			{/* svg */}
+			<svg className="hidden">
+				<filter id="displacementFilter">
+					<feTurbulence type="turbulence" 
+						baseFrequency="0.01" 
+						numOctaves="0.001" 
+						result="turbulence" />
+			
+					<feDisplacementMap in="SourceGraphic"
+						in2="turbulence"    
+									scale="50" xChannelSelector="R" yChannelSelector="G" />
+				</filter>
+			</svg>
+
+
 			{/* MENU */}
 			<div
 				ref={menuRef}
@@ -222,11 +239,35 @@ export default function List({ name }: { name: string }) {
 			</div>
 
 			{/* CONTENT */}
-			<div
+			{/* <div
 				ref={contentRef}
 				
 				onClick={() => handleSteps(currentStep)}
 				className={`relative h-full flex items-center pl-5 bg-linear-to-r ${currentStep === "INPROGRESS" ? "from-gray-300/50 to-yellow-400" : currentStep === "DONE" ? "from-gray-300/50 to-green-400" : "from-gray-300/50 to-gray-400"} cursor-pointer rounded-3xl shadow-lg shadow-gray-800`}
+				className={`
+					relative h-full flex items-center pl-5
+					rounded-3xl
+					${currentStep === "INPROGRESS" ? "bg-yellow-300/40" : currentStep === "DONE" ? "bg-green-300/40" : "bg-white/20"}
+					backdrop-blur-[2px]
+					backdrop-brightness-110
+					border border-white/30
+					shadow-xl shadow-black/40
+				`}
+			> */}
+			<div
+				ref={contentRef}
+				onClick={() => handleSteps(currentStep)}
+				className={`
+				relative h-full flex items-center pl-5
+				cursor-pointer rounded-[28px]
+				overflow-hidden
+				${currentStep === "INPROGRESS" ? "bg-yellow-300/40" : currentStep === "DONE" ? "bg-green-300/40" : "bg-white/50"}
+				border border-white/30
+				backdrop-blur-[2px] backdrop-brightness-110
+				transition-opacity duration-300
+				drop-shadow-[-8px_-10px_46px_rgba(0,0,0,0.35)]
+				liquid-glass
+				`}
 			>
 				{!update ? (
 					<p className="text-gray-900 text-xl line-clamp-1 font-semibold">{name}</p>

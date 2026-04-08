@@ -10,8 +10,12 @@ function page() {
     const [add, setAdd] = useState<boolean>(false);
 
     return (
-        <div className="pt-20 min-h-screen flex flex-col gap-10 items-center justify-start bg-gray-600">
-            <div className="flex justify-between w-[90vw] max-w-4xl">
+        <div className="pt-20 relative min-h-screen flex flex-col gap-10 items-center justify-start bg-gray-600">
+            <img
+                src={"/images/titre4.jpg"}
+                className="absolute inset-0 z-0 w-full h-full"
+            />
+            <div className="relative z-5 flex justify-between w-[90vw] max-w-4xl">
                 <div className="flex gap-2 items-center justify-center">
                     <span className="w-7 h-7 bg-gray-500 rounded-full shadow-md shadow-gray-800"></span>
                     <p>A faire</p>
@@ -25,7 +29,7 @@ function page() {
                     <p>Terminée</p>
                 </div>
             </div>
-			<div className='flex gap-1 items-center justify-center'>
+			<div className='relative z-5 flex gap-1 items-center justify-center'>
                 <span className="text-xl text-gray-900">
                     Ajouter une nouvelle liste
                 </span>                 
