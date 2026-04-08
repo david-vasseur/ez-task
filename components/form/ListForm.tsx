@@ -132,7 +132,7 @@ function ListForm({ familyId, token, open }: IList) {
     return (
         <form 
             ref={containerRef}
-            className="relative w-[80vw] xl:w-[50vw] h-10 xl:h-20"
+            className="relative w-[80vw] xl:w-[50vw] h-15"
             onSubmit={(e) => {
                 e.preventDefault()
                 form.handleSubmit()
@@ -175,8 +175,7 @@ function ListForm({ familyId, token, open }: IList) {
                         className="
                             absolute right-1 top-1/2 -translate-y-1/2
                             flex items-center justify-center
-                            h-9 w-9
-                            xl:h-19 xl:w-19
+                            h-14 w-14
                             rounded-full
                             bg-radial from-blue-800/60 to-purple-600/80 from-5% to-80%
                             text-zinc-100

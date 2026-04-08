@@ -1,0 +1,35 @@
+services:
+  web:
+    build: .
+    container_name: ez-task-dev
+
+    ports:
+      - "127.0.0.1:4002:3000"
+
+    environment:
+      - NODE_ENV=development
+      - NEXT_DISABLE_TURBOPACK=1
+      - NODE_OPTIONS=--max-old-space-size=4096
+      - CHOKIDAR_USEPOLLING=true
+      
+    command: npm run dev
+
+    env_file:
+      - .env
+
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+
+        - action: sync
+          path: ./public
+          target: /app/public
+
+        - action: rebuild
+          path: package.json
+
+        - action: sync+restart
+          path: next.config.js
+          target: /app/next.config.js
