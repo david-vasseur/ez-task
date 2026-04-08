@@ -4,7 +4,7 @@ import { addTreeAction } from '@/lib/actions/listAction';
 import { IInput, InputSchema } from '@/lib/schema/inputSchema';
 import { useForm } from '@tanstack/react-form';
 import gsap from 'gsap';
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { BiCheck, BiSend } from 'react-icons/bi';
 import { toast } from 'sonner';
 
@@ -17,6 +17,15 @@ interface IList {
 function ListForm({ familyId, token, open }: IList) {
 
     const containerRef = useRef<HTMLFormElement>(null);
+
+    useLayoutEffect(() => {
+        if (!containerRef.current) return;
+
+        gsap.set(containerRef.current, {
+            opacity: 0,
+            y: -50
+        });
+    }, []);
 
     const form = useForm({
             defaultValues: {
@@ -47,92 +56,46 @@ function ListForm({ familyId, token, open }: IList) {
             },
         })
 
+    const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+    useLayoutEffect(() => {
+        if (!containerRef.current) return;
+
+        const el = containerRef.current;
+
+        const isDesktop = window.innerWidth >= 1280;
+        const targetWidth = isDesktop ? "40%" : "80%";
+
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo(el,
+            { opacity: 0, y: -50, width: el.offsetHeight },
+            { opacity: 1, y: 0, width: el.offsetHeight, duration: 0.2, ease: "power2.out" }
+        )
+        .to(el, {
+            width: targetWidth,
+            duration: 0.4,
+            ease: "back.out"
+        });
+
+        tlRef.current = tl;
+
+    }, []);
+
     useEffect(() => {
-    if (!containerRef.current) return;
-
-    const el = containerRef.current;
-    const mm = gsap.matchMedia();
-
-    mm.add("(max-width: 1279px)", () => {
+        if (!tlRef.current) return;
 
         if (open) {
-
-            // animation d'entrée
-            gsap.timeline()
-                .fromTo(
-                    el,
-                    { opacity: 0, y: -50, width: el.offsetHeight },
-                    { opacity: 1, y: 0, width: el.offsetHeight, duration: 0.2, ease: "power2.out" }
-                )
-                .to(el, {
-                    width: "80%",
-                    duration: 0.4,
-                    ease: "back.out"
-                });
-
+            tlRef.current.play();
         } else {
-
-            // animation de sortie (inverse)
-            gsap.timeline()
-                .to(el, {
-                    width: el.offsetHeight,
-                    duration: 0.4,
-                    ease: "back.in"
-                })
-                .to(el, {
-                    opacity: 0,
-                    y: -50,
-                    duration: 0.2,
-                    ease: "power2.in"
-                });
-
+            tlRef.current.reverse();
         }
-
-    });
-
-    mm.add("(min-width: 1280px)", () => {
-
-        if (open) {
-
-            gsap.timeline()
-                .fromTo(
-                    el,
-                    { opacity: 0, y: -50, width: el.offsetHeight },
-                    { opacity: 1, y: 0, width: el.offsetHeight, duration: 0.2, ease: "power2.out" }
-                )
-                .to(el, {
-                    width: "40%",
-                    duration: 0.4,
-                    ease: "back.out"
-                });
-
-        } else {
-
-            gsap.timeline()
-                .to(el, {
-                    width: el.offsetHeight,
-                    duration: 0.4,
-                    ease: "back.in"
-                })
-                .to(el, {
-                    opacity: 0,
-                    y: -50,
-                    duration: 0.2,
-                    ease: "power2.in"
-                });
-
-        }
-
-    });
-
-    return () => mm.revert();
-
-}, [open]);
+    }, [open]);
 
     return (
         <form 
             ref={containerRef}
-            className="relative w-[80vw] xl:w-[50vw] h-15"
+            className="relative w-[80vw] xl:w-[50vw] h-15 opacity-0 -translate-y-12"
             onSubmit={(e) => {
                 e.preventDefault()
                 form.handleSubmit()
@@ -177,7 +140,7 @@ function ListForm({ familyId, token, open }: IList) {
                             flex items-center justify-center
                             h-14 w-14
                             rounded-full
-                            bg-radial from-blue-800/60 to-purple-600/80 from-5% to-80%
+                            bg-radial from-green-800/60 to-green-600/80 from-5% to-80%
                             text-zinc-100
                             hover:bg-purple-700
                             cursor-pointer
