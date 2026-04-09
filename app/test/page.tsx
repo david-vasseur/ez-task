@@ -1,6 +1,7 @@
 "use client"
 
 import ListForm from '@/components/form/ListForm';
+import { GlassElement } from '@/components/ui/glass/glassElement';
 import List from '@/components/ui/List';
 import { PlusCircle } from 'lucide-react';
 import React, { useState } from 'react'
@@ -13,7 +14,7 @@ function page() {
         <div className="pt-20 relative min-h-screen flex flex-col gap-10 items-center justify-start bg-gray-600">
             <img
                 src={"/images/titre4.jpg"}
-                className="absolute inset-0 z-0 w-full h-full"
+                className="fixed inset-0 z-0 w-full h-full"
             />
             <div className="relative z-5 flex justify-between w-[90vw] max-w-4xl">
                 <div className="flex gap-2 items-center justify-center">
@@ -51,6 +52,79 @@ function page() {
                 <List name="Ma liste de course" />
                 <span className='w-60 h-px bg-gray-500'></span>
                 <List name="Ma liste de course" />
+                <GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement>
+                <GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement><GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement>
+                <GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement><GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement><GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement><GlassElement
+                    width={400}
+                    height={60}
+                    radius={50}
+                    depth={10}
+                    blur={1}
+                    chromaticAberration={1}
+                    debug={false}
+                >
+                    <p className="text-xl font-bold text-black">Ma liste de course</p>
+                </GlassElement>
             </div>
 			
 		</div>

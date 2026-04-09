@@ -6,6 +6,7 @@ import { FaPencil, FaTrash } from "react-icons/fa6";
 import { Draggable } from "gsap/all";
 import { Check } from "lucide-react";
 import { ImCancelCircle } from "react-icons/im";
+import LiquidGlassCanvas from "./LiquidGlassEffect";
 
 gsap.registerPlugin(Draggable);
 
@@ -204,7 +205,7 @@ export default function List({ name }: { name: string }) {
 				<filter id="displacementFilter">
 					<feTurbulence type="turbulence" 
 						baseFrequency="0.01" 
-						numOctaves="0.001" 
+						numOctaves="1" 
 						result="turbulence" />
 			
 					<feDisplacementMap in="SourceGraphic"
@@ -269,6 +270,7 @@ export default function List({ name }: { name: string }) {
 				liquid-glass
 				`}
 			>
+		
 				{!update ? (
 					<p className="text-gray-900 text-xl line-clamp-1 font-semibold">{name}</p>
 				) : (
