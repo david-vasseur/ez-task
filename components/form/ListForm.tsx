@@ -136,13 +136,13 @@ function ListForm({ familyId, token, open }: IList) {
                         type="submit" 
                         disabled={!canSubmit || isSubmitting}
                         className="
-                            absolute right-0.5 top-1/2 -translate-y-1/2
+                            absolute right-1.5 top-1/2 -translate-y-1/2
                             flex items-center justify-center
-                            h-14 w-14
+                            h-12 w-12
                             rounded-full
                             bg-radial from-green-800/60 to-green-600/80 from-5% to-80%
                             text-zinc-100
-                            hover:bg-purple-700
+                            hover:bg-green-700
                             cursor-pointer
                         ">
                     {isSubmitting ? "..." : (
