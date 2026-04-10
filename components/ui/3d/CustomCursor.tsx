@@ -5,7 +5,13 @@ import { useRef, useState } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
 import * as THREE from "three"
 
-export default function LiquidCapsule({ position = [0,0,-1], label = "TEST" }) {
+
+type Props = {
+  position?: [number, number, number]
+  label?: string
+}
+
+export default function LiquidCapsule({ position = [0,0,-1], label = "TEST" }: Props) {
 
   const groupRef = useRef<THREE.Group>(null!)
   const { camera, raycaster, pointer } = useThree()
