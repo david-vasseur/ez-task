@@ -1,15 +1,16 @@
 import { easing } from "maath";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import * as THREE from "three"
 
 export default function DynamicLights() {
-  const lightRef = useRef(null);
+  const lightRef = useRef<THREE.DirectionalLight>(null!);
 
   useFrame((state, delta) => {
     if (!lightRef.current) return;
     easing.damp3(
       lightRef.current.position,
-      [state.pointer.x, state.pointer.y, -0.01],
+      [state.pointer.x, state.pointer.y, -0.01] as [number, number, number],
       0.6,
       delta
     );
